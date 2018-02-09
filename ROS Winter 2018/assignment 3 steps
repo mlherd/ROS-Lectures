@@ -1,0 +1,53 @@
+- create a new package
+
+	- cd ~/catkin_ws/src
+
+	- catkin_create_pkg demo dynamixel_controllers std_msgs rospy roscpp
+
+- build your package
+
+	- cd..
+
+	- catkin_make
+
+- create a directory for launch files
+
+	- cd src/demo
+
+	- mkdir launch
+
+- from this point you can use the jimmy project repository on my github as a reference. You can also fallow the steps in slides ROS3 or the links below.
+
+- create a launch file for the manager node
+
+	- follow the instrunction on this webpage or my slides
+		-http://wiki.ros.org/dynamixel_controllers/Tutorials/ConnectingToDynamixelBus
+
+	- nano demo.launch
+
+- test your manager node
+
+	- roslaunch demo controller_manager.launch
+
+	- rostopic echo /motor_states/robot_port
+
+- specify the controller parameter for the contollers and action server in .yaml files
+
+	- create .yaml files in your src directory inside your package
+
+	- cd src 
+
+	- nano jtc.yaml (use the one I used in class or in my slides)
+
+	- nano motor.yaml (you can use the jimmy's motor.yaml file as an example)
+
+- go back to the launch directory you created and modify the launch file 
+
+	- cd launch
+
+	- use jimmy.launch as a reference.
+	- you can also use this web page as an example
+	- nano demo.launch
+
+- test your robot by publishing to a topic
+	- rostopic pub -1 /head_controller/command std_msgs/Float64 3.0
