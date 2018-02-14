@@ -1,4 +1,4 @@
-- create a new package
+- create a new package (use your robots name instead of demo)
 
 	- cd ~/catkin_ws/src
 
