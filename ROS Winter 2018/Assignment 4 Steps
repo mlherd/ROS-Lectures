@@ -1,0 +1,55 @@
+Assignment 4
+
+This ROS assignment is not required. This is an optional assignment. 
+
+However if you don't do this assigment, there is a great risk that you will probably forget what you have learned about ROS in this term.
+Therefore, I strongly recommend you complete this assignment. This assignment covers pretty much everything I have showed you this term. 
+
+If you can succesfully complete it, congratulations you understood the material well. Thanks for your effort and hard work.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Description: Creating motion saver and player nodes.
+
+What do you need to know about to complete this assignment:
+  - ROS Topic
+  - ROS Subscriber and Publisher Nodes
+  - ROS Services
+  - ROS Messages
+  - Python file I/O.
+
+Motion Saver:
+
+1- Create a subscriber node that subscribes to the motor joint topics.
+  - example subscriber
+      - rospy.Subscriber('/right_shoulder_controller/state', JointState, right_shoulder_callback)
+  - your node should be able to name/edit/create text files
+  - Ask the user to name the motion file 
+  - Your node should be able to enable and disable the torque of the servos. You can do this by using services.
+      - service usage example
+      
+        from dynamixel_controllers.srv import TorqueEnable
+        service1 = rospy.ServiceProxy('/right_shoulder_controller/torque_enable', TorqueEnable)
+        //turn torque on
+        service1(1)
+        //turn toruge off
+        service1(0)
+    
+2- Create a list and add joint locations (in radians) into the list 
+3- Save the list in a .txt file
+
+Motion Player:
+
+1- Create a subscriber and publisher node that subscribes to the motion name, and publishes JointSates (Joint Locations) to your controller/command topics.
+  - example publisher
+  
+      - pub5 = rospy.Publisher('/right_hand_controller/command', Float64)
+        pub5.publish(float(joint_positions[4]))
+        
+  - your node should be able to read a text file line by line and save the values in a list
+   
+2- Subscribe to a topic for example "play_motion" (it will be the text file name)
+3- Once a motion name is published to "play_motion" topic, 
+  - open the motion file 
+  - read the JointState values the file
+  - publish the values to the related topics
